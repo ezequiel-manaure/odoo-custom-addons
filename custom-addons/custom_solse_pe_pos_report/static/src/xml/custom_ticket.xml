@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+
+        <!-- Encabezado de la tabla -->
+        <xpath expr="//table[hasclass('tabla')]/tr[1]" position="replace">
+            <tr style="font-size: 10px; font-weight: bold; border-bottom: 1px solid #000; text-transform: uppercase;">
+                <td style="width: 45%;">Producto</td>
+                <td style="width: 10%; text-align: center;">RI</td>
+                <td style="width: 12%; text-align: center;">Cant.</td>
+                <td style="width: 15%; text-align: right;">P.Unit</td>
+                <td style="width: 18%; text-align: right;">Total</td>
+            </tr>
+        </xpath>
+
+        <!-- Ajuste de estilo para Producto -->
+        <xpath expr="//table[hasclass('tabla')]//t[@t-foreach='lines']//tr/td[1]" position="attributes">
+            <attribute name="style">width: 45%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 11px; padding: 2px 0;</attribute>
+        </xpath>
+
+        <!-- Nueva columna RI -->
+        <xpath expr="//table[hasclass('tabla')]//t[@t-foreach='lines']//tr" position="inside">
+            <td style="width: 10%; text-align: center; font-size: 11px; white-space: nowrap;">
+                <t t-esc="line.default_code"/>
+            </td>
+        </xpath>
+
+        <!-- Ajuste de estilo para Cantidad -->
+        <xpath expr="//table[hasclass('tabla')]//t[@t-foreach='lines']//tr/td[2]" position="replace">
+            <td style="width: 12%; text-align: center; font-size: 11px; white-space: nowrap;">
+                <t t-esc="line.qty"/> <span style="font-size: 8px; color: #777;"><t t-esc="line.unit"/></span>
+            </td>
+        </xpath>
+
+        <!-- Ajuste de estilo para Precio Unitario -->
+        <xpath expr="//table[hasclass('tabla')]//t[@t-foreach='lines']//tr/td[3]" position="attributes">
+            <attribute name="style">width: 15%; text-align: right; font-size: 11px; white-space: nowrap;</attribute>
+        </xpath>
+
+        <!-- Ajuste de estilo para Total -->
+        <xpath expr="//table[hasclass('tabla')]//t[@t-foreach='lines']//tr/td[4]" position="attributes">
+            <attribute name="style">width: 18%; text-align: right; font-size: 11px; font-weight: bold; white-space: nowrap;</attribute>
+        </xpath>
+
+    </t>
+</templates>
+
